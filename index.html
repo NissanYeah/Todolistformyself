@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Todo待辦事項</title>
+    <link rel="stylesheet" href="./css/all.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+</head>
+
+<body class="bg-lighter">
+    <div class="col-md-9 container">
+
+        <h1 class="mt-0 text-muted">Todo 待辦事項</h1>
+
+        <div class="alert alert-secondary">
+            <ul class="mb-0 d-none d-md-block">
+                <li>【原則】每天至少刻意練習1小時以上程式（滴水穿石，日日不斷）</li>
+                <li>【刻意練習】要拆解清晰明確的目標＆「有意識」的為了特定目標進行練習</li>
+                <li>【少做事】以虛換實/凡戰者，以正合，以奇勝/我專而敵分/集中兵力</li>
+                <li>【專心在自己】不可勝在己，可勝在敵</li>
+                <li>【幸福】一切有為法，如夢幻泡影，如露亦如電，應作如是觀</li>
+                </li>
+            </ul>
+            <ul class="d-block d-md-none mb-0">
+                <li>集中兵力，少做事。</li>
+            </ul>
+        </div>
+        <div id="app">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">待辦事項</span>
+                </div>
+                <input type="text" class="form-control" placeholder="準備要做的任務" v-model="newTodo" @keyup.enter="addTodo">
+                <div class="input-group-append  ">
+                    <button class="btn btn-primary" type="button" @click="addTodo">新增</button>
+                </div>
+            </div>
+            <div class="card text-center">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" :class="{'active':visibilty == 'all'}" @click="visibilty ='all',catagory_selected='none'" href="#">全部</a>
+                        </li> -->
+                        <!-- 取消少用的全部功能 -->
+
+                        <li class="nav-item">
+                            <a class="nav-link " :class="{'active':visibilty == 'today'}" @click="visibilty ='today',catagory_selected='today'" href="#">本日任務</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " :class="{'active':visibilty == 'priority'}" @click="visibilty ='priority',catagory_selected='priority'"
+                                href="#">優先事項</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" :class="{'active':visibilty == 'work'}" @click="visibilty ='work',catagory_selected='work'" href="#">TASC任務</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" :class="{'active':visibilty == 'tech'}" @click="visibilty ='tech',catagory_selected='tech'" href="#">技能任務</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" :class="{'active':visibilty == 'secondary'}" @click="visibilty ='secondary',catagory_selected='secondary'"
+                                href="#">雜事</a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" :class="{'active':visibilty == 'done'}" @click="visibilty ='done'" href="#">完成</a>
+                        </li> -->
+                        <!-- 取消少用的完成功能 -->
+                    </ul>
+                </div>
+                <ul class="list-group list-group-flush text-left">
+                    <li class="list-group-item" v-for="(item,key) in filteredTodo">
+                        <div class="d-flex">
+                            <div class="form-check">
+                                <input v-if="visibilty != 'today'" type="checkbox" class="form-check-input" @click="finish(item)" :checked="item.completed">
+                                <label class="form-check-label" :for="item.id" :class="{'completed':item.completed}">
+                                    {{item.title}}
+                                </label>
+                            </div>
+                            <button type="button" class="close ml-auto" aria-label="Close" @click="removeTodo(item)">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </li>
+
+
+                </ul>
+                <div class="card-footer d-flex justify-content-between">
+                    <span>還剩餘 {{todos.todolist.length-todos.done}} 筆任務</span>
+                    <!-- <span>已完成 {{todos.done}} 筆任務</span> -->
+                    <a href="#" @click="removealltodo">清除所有任務</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
+    <script src="./javascript/script.js "></script>
+
+
+
+
+
+
+
+</body>
+
+</html>
